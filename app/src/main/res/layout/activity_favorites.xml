@@ -1,43 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="8dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_gray">
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomNavigation">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mes Favoris"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:gravity="center"
+            android:padding="12dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/emptyFavoritesMessage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Vous n'avez pas encore d'articles favoris"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/secondary_text"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/buttonClearFavorites"
+            style="@style/Button.Secondary"
+            android:text="Vider les favoris"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@android:drawable/ic_menu_delete" />
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mes Favoris"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:gravity="center"
-        android:padding="12dp"/>
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_navigation_menu"
+        android:background="@color/white"
+        app:itemIconTint="@color/primary"
+        app:itemTextColor="@color/primary"
+        android:elevation="8dp"
+        tools:ignore="MissingClass" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewFavorites"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+    <include
+        android:id="@+id/loadingView"
+        layout="@layout/loading_indicator" />
 
-    <TextView
-        android:id="@+id/emptyFavoritesMessage"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Vous n'avez pas encore d'articles favoris"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:textColor="@color/secondary_text"
-        android:visibility="gone"/>
-
-    <Button
-        android:id="@+id/buttonClearFavorites"
-        style="@style/Button.Secondary"
-        android:text="Vider les favoris"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout> 
+</RelativeLayout> 

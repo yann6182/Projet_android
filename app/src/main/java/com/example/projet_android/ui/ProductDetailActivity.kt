@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.projet_android.R
 import com.example.projet_android.model.Product
 import com.example.projet_android.utils.CartManager
@@ -48,17 +49,20 @@ class ProductDetailActivity : AppCompatActivity() {
         Glide.with(this)
             .load(product.image)
             .placeholder(R.drawable.placeholder_image)
+            .transition(DrawableTransitionOptions.withCrossFade(300))
             .into(imageView)
 
         addButton.setOnClickListener {
             CartManager.addItem(product)
-            Toast.makeText(this, "Produit ajouté au panier", Toast.LENGTH_SHORT).show()
+            val toast = Toast.makeText(this, "Produit ajouté au panier", Toast.LENGTH_SHORT)
+            toast.show()
         }
 
         qrButton.setOnClickListener {
             val intent = Intent(this, GenerateQrActivity::class.java)
             intent.putExtra("product", product)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
         
         updateFavoriteButton()
@@ -113,5 +117,10 @@ class ProductDetailActivity : AppCompatActivity() {
         
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
         startActivity(Intent.createChooser(shareIntent, "Partager via"))
+    }
+    
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }
